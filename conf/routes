@@ -1,0 +1,14 @@
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+# INDEX
+GET     /                           controllers.IndexController.index
+
+# CHERCHER LES TABLES
+GET     /allTablesByRestoId         controllers.TablesController.allTablesByRestoId(id: Int)
+GET     /allTablesByRestoNom        controllers.TablesController.allTablesByRestoNom(nom: String)

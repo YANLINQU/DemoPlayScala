@@ -1,0 +1,18 @@
+@(tables:Seq[Tables])
+
+@main("Welcome to tables") {
+    <div class="container" id="contenu_tables" style="display: none">
+        <table class="table" id="tab">
+            <tr>
+                <td>Numero</td>
+                <td>Suprrime Table</td>
+            </tr>
+            @for(table <- tables){
+                <tr>
+                    <td>@table.numero</td>
+                    <td><button type="button" class="btn btn-danger">Supprimer</button></td>
+                </tr>
+            }
+        </table>
+    </div>
+}
