@@ -1,7 +1,7 @@
-@(tables:Seq[Tables])
+@(tables:Seq[Tables], nomResto:String)
 
 @main("Welcome to tables") {
-    <div class="container" id="contenu_tables" style="display: none">
+    <div class="container" id="contenu_tables" >
         <table class="table" id="tab">
             <tr>
                 <td>Numero</td>
@@ -14,5 +14,17 @@
                 </tr>
             }
         </table>
+
+        <form method="post" action="/addTable?nomResto=@nomResto">
+            <table class="addtable" id="addtab">
+                <tr>
+                    <td>Numero</td>
+                    <td><input type="text" value="" name="addnumero"> </td>
+                </tr>
+                <tr>
+                    <td> <button class="btn btn-success">submit</button> </td>
+                </tr>
+            </table>
+        </form>
     </div>
 }

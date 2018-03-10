@@ -7,70 +7,7 @@ YANLIN QU
 var connection="http://localhost:8080/";
 var connectionws="ws://localhost:8080/";
 $(function(){
-    $("#wrapper").toggleClass("toggled");
-    /*
-    var audioEle = document.getElementById("audio");
-    $.ajax({
-        url:connection+'websocket/login/SuShiKan',
-        type:"GET",
-        cache : false,
-        dataType : "json",
-        success:function(data) {
-            var websocket=null;
-            if ('WebSocket' in window) {
-                websocket = new WebSocket(connectionws+"webSocketIMServer");
-            } else if ('MozWebSocket' in window) {
-                websocket = new MozWebSocket(connectionws+"webSocketIMServer");
-            } else {
-                websocket = new SockJS(connection+"webSocketIMServer");
-            }
-            websocket.onopen = onOpen;
-            websocket.onmessage = onMessage;
-            websocket.onerror = onError;
-            websocket.onclose = onClose;
-
-            function onOpen(openEvt) {
-                //alert("open");
-                //alert(openEvt.Data);
-            }
-
-            function onMessage(evt) {
-                $("#contenu_commandes").hide();
-                $.ajax({
-                    url:connection+'commande/1',
-                    type:"GET",
-                    cache : false,
-                    dataType : "json",
-                    success:function(data) {
-                        if(!$("#contenu_commandes").is(":visible")){
-                            $("#commandes tr:not(:first)").empty();//enlever toutes ligne dans la table sauf que la premiere
-                            divShowAndHide("contenu_commandes");
-                            $.each(data, function(i,item){
-                                commandecontenu(item);
-                            });
-                            //var audio = new Audio("music/son.mp3");
-                            audioEle.play();
-                            swal({
-                                title: "Vous avez reçu une nouvelle commande ！",
-                                text: "",
-                                timer: 2000,
-                                showConfirmButton: false
-                            });
-                        }
-                    },
-                    error: function(){
-                        //message d'error
-                    }
-                });
-            }
-            function onError() {}
-            function onClose() {}
-        },
-        error: function(){
-            //message d'error
-        }
-    });
-    */
+   $("#wrapper").toggleClass("toggled");
 });
 //open wapper
 $("#menu-toggle-right").click(function(e) {

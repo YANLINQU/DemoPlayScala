@@ -2,8 +2,12 @@ package controllers
 
 import javax.inject.Inject
 
-import play.api.mvc.{AbstractController, ControllerComponents}
-import services.{TablesService}
+import com.google.common.collect.Tables
+import models.AddUneTable
+import play.api.data._
+import play.api.data.Forms._
+import play.api.mvc.{AbstractController, AnyContent, ControllerComponents, Request}
+import services.TablesService
 
 import scala.concurrent.ExecutionContext
 
@@ -11,18 +15,18 @@ class TablesController @Inject()(tablesService:TablesService, cc: ControllerComp
 
   //select all tables
   def allTables = Action.async{
-    tablesService.allTables().map{case(tables)=>Ok(views.html tables(tables))}
+    tablesService.allTables().map{case(tables)=>Ok(views.html tables(tables, "SUSHI KAN"))}
   }
 
   /*
   chercher toutes les tables dans un resto par l'Id de resto
    */
   def allTablesByRestoId(id: Int) = Action.async {
-    tablesService.allTablesByRestoId(id).map{case(tables)=>Ok(views.html tables(tables))}
+    tablesService.allTablesByRestoId(id).map{case(tables)=>Ok(views.html tables(tables, "SUSHI KAN"))}
   }
 
   /*
-  chercher toures les tables ans un resto par le Nom de resto
+  chercher toures les tables dans un resto par le Nom de resto
    */
   def allTablesByRestoNom(nom: String) = Action.async{
     /*
@@ -36,12 +40,26 @@ class TablesController @Inject()(tablesService:TablesService, cc: ControllerComp
 
       la methode tablesService.allTablesByRestoNom(nom) reponse une collection
       vector(Some(1),Some(2),Some(3),etc)
-      Changer la collection en vector(1,2,3,etc) pour la page recupere Seq[Tables]
+      Changer la collection en vector(1,2,3,etc) pour la page recuperer Seq[Tables]
 
       Si tables est une collection Seq[Option[Tables]]
       Il faudra utiliser @for(table <- tables.flatten)
       sinon @for(table <- tables)
     */
-    tablesService.allTablesByRestoNom(nom).map{case(tables)=>Ok(views.html tables(tables.flatten))}
+    tablesService.allTablesByRestoNom(nom).map{case(tables)=>Ok(views.html tables(tables.flatten, nom))}
+  }
+
+
+  def addTableInTheResto(nomResto: String) = Action.async{ implicit request: Request[AnyContent] =>
+    //POST: recupere les infos par un VO addUneTable avec mapping
+    val addTableInfos = Form(
+      mapping{
+        "addnumero" -> nonEmptyText
+      }(AddUneTable.apply)(AddUneTable.unapply)
+    ).bindFromRequest.get
+
+    tablesService.addUneTable(nomResto,addTableInfos.addnumero.toInt)
+
+    tablesService.allTablesByRestoNom(nomResto).map{case(tables)=>Ok(views.html tables(tables.flatten, nomResto))}
   }
 }

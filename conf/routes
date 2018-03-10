@@ -12,3 +12,13 @@ GET     /                           controllers.IndexController.index
 # CHERCHER LES TABLES
 GET     /allTablesByRestoId         controllers.TablesController.allTablesByRestoId(id: Int)
 GET     /allTablesByRestoNom        controllers.TablesController.allTablesByRestoNom(nom: String)
+
+# Rajouter les tables
+POST    /addTable                   controllers.TablesController.addTableInTheResto(nomResto: String)
+
+# Json tester
+GET   /jsonPlaces                   controllers.PlaceJsonController.listPlaces
+GET   /jsonGet                      controllers.PlaceJsonController.jsonGet
+GET   /jsonTester                   controllers.PlaceJsonController.jsonTester
+POST  /jsonPost                     controllers.PlaceJsonController.jsonPost
+POST  /savePlace                    controllers.PlaceJsonController.savePlace
